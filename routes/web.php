@@ -14,11 +14,7 @@ use App\Http\Controllers\Warehouse\WarehouseController;
 |
 */
 
-Route::get('/armazenamento',[WarehouseController::class, 'index'])->name('profile');
-    
-
-
-Route::get('/admin', function(){
+Route::get('/inicio', function(){
     return view('admin.home');
 });
 Route::get('/agenda', function(){
