@@ -23,7 +23,14 @@ Route::get('/agenda', function(){
 Route::get('/clientes', function(){
     return view('admin.customer');
 });
+Route::get('/clientes', [CustomerController::class, 'show']);
+
+Route::get('/delete/{id}', [CustomerController::class, 'destroy'])->name('customer.delete');
+Route::get('/update/{id}', [CustomerController::class, 'store'])->name('customer.update');
+
+
 Route::post('/cadastrar', [CustomerController::class, 'index']);
+
 
 
 

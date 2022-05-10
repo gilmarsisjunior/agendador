@@ -22,13 +22,16 @@ class CustomerController extends Controller
 
     public function show(){
         $customers = \DB::table('customers')->get();
-        return response()->json([
-            "values"=>$customers,
-        ]);
+        return view('admin.customer', compact('customers'));
     }
 
 
-
+    public function destroy($id){
+        dd($id, 'delete');
+    }
+    public function store($id){
+        dd($id, 'update');
+    }
 
 
 

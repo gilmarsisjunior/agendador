@@ -77,7 +77,7 @@
           </header>
         @show
  
-        <div class="container">
+        <div >
 
             @yield('content')       
 

@@ -1,7 +1,13 @@
 @extends('layout.home');
 @section('content')
-<table class="table">
-    <thead>
+<div style="width: 94%; height:60px; display:flex; justify-content:flex-end; align-items:center">
+    <div>
+        <a class="btn btn-primary" href="#" role="button"> <img src="{{asset('admin/customers/icons/plus-circle.svg')}}" alt="Adicionar Cliente" title="Adicionar Cliente" srcset="Adicionar Cliente"></a>
+    </div>
+</div>
+
+<table class="table" style="text-align: center">
+    <thead class="table-primary">
       <tr>
         <th scope="col">Nome</th>
         <th scope="col">E-mail</th>
@@ -10,27 +16,26 @@
         <th scope="col">Edit/Remove</th>
       </tr>
     </thead>
-    <tbody  id="customers">
-    <img src="" alt="">
+    <tbody  id="customers" class="table-info">
+      @foreach ($customers as $value)
+          <tr>
+              <td>{{$value->name}}</td>
+              <td>{{$value->email}}</td>
+              <td>{{$value->address}}</td>
+              <td>{{$value->telephone}}</td>
+              <td><a href="{{route('customer.update', $value->id)}}" ><img src="{{asset('admin/customers/icons/pencil-square.svg')}}" style="margin-right: 10px"></a><a href="{{route('customer.delete', $value->id)}}"><img src="{{asset('admin/customers/icons/close.svg')}}"></a></td>
+              
+             
+          </tr>
+      @endforeach  
+
     </tbody>
   </table>
 @endsection
 
 @push('scripts')
 <script>
-    $.get( "http://127.0.0.1:8000/api/clientes", function( data ) {
-     $.each(data.values, (index,values)=>{
-        $("#customers").prepend(
-            "<tr id='line'>"
-            +"<td>"+values.name+"</td>"
-            +"<td>"+values.email+"</td>"
-            +"<td>"+values.address+"</td>"
-            +"<td>"+values.telephone+"</td>"
-            +"<td> <a href='google.com'><img src='{{asset('admin/customers/icons/pencil-square.svg')}}' alt=''><a/> <a href='google.com'><img src='{{asset('admin/customers/icons/close.svg')}}'<a/>"
-            +"</tr>");
 
-     })  
-
-});
 </script>
+
 @endpush
