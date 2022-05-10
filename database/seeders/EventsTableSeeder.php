@@ -15,6 +15,7 @@ class EventsTableSeeder extends Seeder
     public function run()
     {
         \DB::table('events')->insert([
+             /* 
             ['id'=>1, 'text'=>'Gilmar Junior - Restauração', 'start_date'=>'2018-12-05 08:00:00',
                  'end_date'=>'2018-12-05 09:30:00', 'color'=>'green'],
             ['id'=>2, 'text'=>'Dr Marcos Paulo - Periodontite', 'start_date'=>'2018-12-05 09:30:00',
@@ -43,10 +44,10 @@ class EventsTableSeeder extends Seeder
                  ['id'=>13, 'text'=>'Esther Ferreira - Manutenção', 'start_date'=>'2018-12-08 10:30:00',
                  'end_date'=>'2018-12-08 11:00:00', 'color'=>'blue'],
                  ['id'=>14, 'text'=>'João Augusto - Restauração', 'start_date'=>'2018-12-08 11:30:00',
-                 'end_date'=>'2018-12-08 12:00:00', 'color'=>'pink'],
-                 ['id'=>15, 'text'=>'Marcos Justos - Limpeza', 'start_date'=>'2018-12-08 12:30:00',
-                 'end_date'=>'2018-12-08 01:00:00', 'color'=>'black'],
-                 ['id'=>16, 'text'=>'Keven Konan - Manutenção', 'start_date'=>'2018-12-08 13:30:00',
+                 'end_date'=>'2018-12-08 12:00:00', 'color'=>'pink'],*/
+                 ['id'=>15, 'id_cliente'=>1, 'text'=>'Marcos Justos - Limpeza', 'start_date'=>'2018-12-08 12:30:00',
+                 'end_date'=>'2018-12-08 13:00:00', 'color'=>'black'],
+                 ['id'=>16, 'id_cliente'=>2, 'text'=>'Keven Konan - Manutenção', 'start_date'=>'2018-12-08 13:30:00',
                  'end_date'=>'2018-12-08 14:00:00', 'color'=>'purple'],
         ]);
     }

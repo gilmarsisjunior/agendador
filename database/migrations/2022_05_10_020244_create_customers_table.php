@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('id_cliente');
-            $table->string('text');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
-            $table->string('color');
+            $table->string('name');
+            $table->string('address');
+            $table->string('email');
+            $table->string('telephone');
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('customers');
     }
 };

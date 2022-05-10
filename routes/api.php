@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Customer\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::get('/data', 'Event/EventController@index');
 
 Route::get('/data',[EventController::class, 'index']);
+Route::get('/clientes',[CustomerController::class, 'show']);

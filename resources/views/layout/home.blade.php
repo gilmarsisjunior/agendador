@@ -77,7 +77,7 @@
           </header>
         @show
  
-        <div class="container" style="background-color: rgb(1, 34, 42)">
+        <div class="container">
 
             @yield('content')       
 

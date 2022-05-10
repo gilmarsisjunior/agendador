@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Warehouse\WarehouseController;
+use App\Http\Controllers\Customer\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,11 @@ Route::get('/inicio', function(){
 Route::get('/agenda', function(){
     return view('admin.schedule');
 });
+Route::get('/clientes', function(){
+    return view('admin.customer');
+});
+Route::post('/cadastrar', [CustomerController::class, 'index']);
+
 
 
 
