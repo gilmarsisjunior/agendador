@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerController;
-
+use App\Http\Controllers\Event\EventController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,13 +16,14 @@ use App\Http\Controllers\Customer\CustomerController;
 
 Route::get('/inicio', function(){
     return view('admin.home');
-});
-Route::get('/agenda', function(){
-    return view('admin.schedule');
-});
-Route::get('/clientes', function(){
-    return view('admin.customer');
-});
+})->name('home');
+
+
+Route::get('/agenda', [EventController::class, 'showEvents']);
+Route::post('/agenda', [EventController::class, 'index'])->name('register.schedule');
+Route::get('/agendar', [CustomerController::class, 'getCustomers']);
+
+
 Route::get('/clientes', [CustomerController::class, 'show']);
 
 Route::get('/delete/{id}', [CustomerController::class, 'destroy'])->name('customer.delete');

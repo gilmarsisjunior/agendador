@@ -45,9 +45,9 @@ class EventsTableSeeder extends Seeder
                  'end_date'=>'2018-12-08 11:00:00', 'color'=>'blue'],
                  ['id'=>14, 'text'=>'João Augusto - Restauração', 'start_date'=>'2018-12-08 11:30:00',
                  'end_date'=>'2018-12-08 12:00:00', 'color'=>'pink'],*/
-                 ['id'=>15, 'id_cliente'=>1, 'text'=>'Marcos Justos - Limpeza', 'start_date'=>'2018-12-08 12:30:00',
+                 ['id'=>15, 'customer_id'=>1, 'text'=>'Marcos Justos - Limpeza', 'start_date'=>'2018-12-08 12:30:00',
                  'end_date'=>'2018-12-08 13:00:00', 'color'=>'black'],
-                 ['id'=>16, 'id_cliente'=>2, 'text'=>'Keven Konan - Manutenção', 'start_date'=>'2018-12-08 13:30:00',
+                 ['id'=>16, 'customer_id'=>2, 'text'=>'Keven Konan - Manutenção', 'start_date'=>'2018-12-08 13:30:00',
                  'end_date'=>'2018-12-08 14:00:00', 'color'=>'purple'],
         ]);
     }

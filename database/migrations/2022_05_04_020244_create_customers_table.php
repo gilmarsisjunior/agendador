@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('telephone');
             $table->timestamps();
         });
+        Schema::table('customers', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**

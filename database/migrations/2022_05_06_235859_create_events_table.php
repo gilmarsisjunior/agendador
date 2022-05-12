@@ -15,13 +15,15 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('id_cliente');
+            $table->foreignId('customer_id')->nullable()->constrained('customers')->onDelete('set null');
             $table->string('text');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->string('color');
             $table->timestamps();
         });
+       
+       
     }
     
     /**
