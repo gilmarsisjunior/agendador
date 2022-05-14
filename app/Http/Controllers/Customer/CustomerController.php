@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Procedure;
 use Illuminate\Http\Request;
 use Redirect;
 
@@ -32,8 +33,9 @@ class CustomerController extends Controller
         $url = $_SERVER['PATH_INFO'];
         $url = str_replace('/', '', $url);
         $customers = Customer::get();
+        $procedures = Procedure::get();
         if ($url === 'agendar') {
-            return view('admin.scheduling', compact('customers'));
+            return view('admin.scheduling', ['customers'=>$customers, 'procedures'=>$procedures]);
         } else {
             return $customers;
         }

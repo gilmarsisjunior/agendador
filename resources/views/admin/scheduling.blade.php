@@ -10,7 +10,11 @@
       @endforeach
       
    </select>
-   <input type="text" id="Procedimento" name="procedimento" placeholder="Procedimento">
+   <select name="" id="" >
+      @foreach ($procedures as $procedure)
+          <option value="{{$procedure->procedure}}">{{$procedure->procedure}}</option>
+      @endforeach
+   </select>
    <input type="datetime-local" id="start_date" name="start_date">
    <input type="datetime-local" id="end_date" name="end_date">
    <button type="submit">Agendar</button>

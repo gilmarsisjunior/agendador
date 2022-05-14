@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Procedure\ProcedureController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,17 +23,20 @@ Route::get('/inicio', function(){
 Route::get('/agenda', [EventController::class, 'showEvents']);
 Route::post('/agenda', [EventController::class, 'index'])->name('register.schedule');
 Route::get('/agendar', [CustomerController::class, 'getCustomers']);
-
+Route::get('/attend/{id}', [EventController::class, 'attendCustomer'])->name('attend.customer');
 
 Route::get('/clientes', [CustomerController::class, 'show']);
 
 Route::get('/delete/{id}', [CustomerController::class, 'destroy'])->name('customer.delete');
 Route::get('/update/{id}', [CustomerController::class, 'store'])->name('customer.update');
-
-
 Route::post('/cadastrar', [CustomerController::class, 'index']);
 
 
+Route::get('/procedimento', function(){
+    return view('admin.add_procedure');
+})->name('procedure');
+Route::get('/procedimentos', [ProcedureController::class, 'store']);
+Route::post('/procedimento', [ProcedureController::class, 'index']);
 
 
 

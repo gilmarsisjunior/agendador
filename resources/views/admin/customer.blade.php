@@ -7,13 +7,14 @@
   </div>
   @endif
 </div>
-<div style="width: 94%; display:flex; justify-content:flex-end; align-items:center">
-    <div>
-        <a class="btn btn-primary" href="#" role="button"> <img src="{{asset('admin/customers/icons/plus-circle.svg')}}" alt="Adicionar Cliente" title="Adicionar Cliente" srcset="Adicionar Cliente"></a>
+<div style="display:flex; justify-content:flex-end; align-items:center">
+    <div class="bg-info">
+        <a class="btn btn-primary" href="#" role="" style="background-color:#6F93F7"><strong>+</strong> Novo Cliente</a>
     </div>
 </div>
 
-<table class="table" style="text-align: center">
+<strong style="color: gray">Clientes</strong>
+<table class="table table-borderless" style="text-align: center">
 
     <thead class="table">
       
@@ -22,6 +23,7 @@
         <th scope="col">E-mail</th>
         <th scope="col">Endereço</th>
         <th scope="col">Telefone</th>
+       
         <th scope="col">Opções</th>
       </tr>
     </thead>
@@ -32,7 +34,8 @@
               <td>{{$value->email}}</td>
               <td>{{$value->address}}</td>
               <td>{{$value->telephone}}</td>
-              <td><a href="{{route('customer.update', $value->id)}}" ><button type="button" class="btn btn-primary btn-sm">Atualizar</button></a><a href="{{route('customer.delete', $value->id)}}"><img src="{{asset('admin/customers/icons/trashcan.png')}}"></a></td>
+              
+              <td><a href="{{route('customer.update', $value->id)}}" ><img src="{{asset('admin/customers/icons/edit-icon.svg')}}" alt=""></a><a href="{{route('customer.delete', $value->id)}}"><img src="{{asset('admin/customers/icons/trashcan.png')}}"></a></td>
               
              
           </tr>

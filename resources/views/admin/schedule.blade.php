@@ -2,27 +2,32 @@
 @section('title', 'Agenda')
 
 @section('content')
+ @if (session('msg'))
+  <div class="alert alert-info">
+    {{ session('msg') }}
+  </div>
+  @endif
 <div>
-   <div class="d-flex justify-content-between" style="align-items:center; width: 90%">
-      <div>
-         <h4>Agenda</h4>
-      </div>
+   <div class="d-flex justify-content-end" style="align-items:center;">
+     
       <div >
-         <a  href="/agendar" role="button" class="btn btn-primary" ><img title="Agendar um horário" src="{{asset('admin/customers/icons/plus-circle.svg')}}"></a>
+         <a  href="/agendar" role="button" class="btn btn-primary" style="background-color: #6F93F7"><strong>+</strong> Novo Agendamento</a>
       </div>
-      
        
    </div>
 </div>
-<table class="table" style="text-align: center">
+<strong style="color: gray">Agendados</strong>
+<table class="table table-hover table-borderless" style="text-align: center;">
    <thead>
      <tr>
-       <th scope="col">Nome</th>
-       <th scope="col">Procedimento</th>
-       <th scope="col">Data</th>
-       <th scope="col">Início</th>
-       <th scope="col">Fim</th>
-       <th scope="col">Opções</th>
+       <th>Nome</th>
+       <th>Procedimento</th>
+       <th>Data</th>
+       <th>Início</th>
+       <th>Fim</th>
+       <th>Status</th>
+       <th>Opções</th>
+
      </tr>
    </thead>
    <tbody>
@@ -33,10 +38,17 @@
            <td>{{$event['start_date']}}</td>
            <td>{{$event['time_init']}}</td>
            <td>{{$event['time_end']}}</td>
+           @if ($event['attend'] == 0)
+           <td style="color: #e7ff0b"><strong>Em espera</strong></td>
+           @else
+           <td style="color: #128731"><strong>Atendido</strong></td>
+           @endif
            <td>
-              
-            <a href="#"><button type="button" class="btn btn-success btn-sm">Atendido</button></a>
-            <a href="#"><button type="button" class="btn btn-primary btn-sm">Atualizar</button></a>
+              @if ($event['attend'] !==1)
+              <a href="{{route('attend.customer', $event['id'])}}"><img src="{{asset('admin/customers/icons/check.png')}}" alt=""></a>
+              @endif
+            
+            <a href="#"><img src="{{asset('admin/customers/icons/edit-icon.svg')}}" alt=""></a>
             <a href="#"><img src="{{asset('admin/customers/icons/trashcan.png')}}" alt=""></a>
               
             
