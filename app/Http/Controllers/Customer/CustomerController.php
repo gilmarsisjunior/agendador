@@ -6,26 +6,51 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Procedure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Redirect;
 
 class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-
-        \DB::table('customers')->insert([
-            'name' => $request->name,
-            'email' => $request->email,
-            'address' => $request->address,
-            'telephone' => $request->telephone,
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+        $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
+        $number = filter_input(INPUT_POST, 'number', FILTER_SANITIZE_STRING);
+        
+        $customer = DB::table('customers')->insert([
+            'name' => $name,
+            'email' => $email,
+            'address' => $address,
+            'telephone' => $number,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
         ]);
 
-    }
+        if($customer){
+            return true;
+        }
+        else return false;
+
+    }   
 
     public function show()
     {
-        $customers = $this->getCustomers();
+        $customers = $this->getCust();
         return view('admin.customer', compact('customers'));
+    }
+
+    public function getCtm(Request $request){
+        if($request->ajax()){
+            $customers = $this->getCust();
+        return view('shared.customers-pagination', compact('customers'))->render();
+        }
+    }
+
+    public function getCust(){
+
+        $customers = Customer::orderBy("created_at", 'desc')->paginate(6);
+        return $customers;
     }
 
     public function getCustomers()
@@ -34,8 +59,8 @@ class CustomerController extends Controller
         $url = str_replace('/', '', $url);
         $customers = Customer::get();
         $procedures = Procedure::get();
-        if ($url === 'agendar') {
-            return view('admin.scheduling', ['customers'=>$customers, 'procedures'=>$procedures]);
+        if ($url === 'agenda') {
+            return view('admin.scheduling', ['datas'=>$customers, 'procedures'=>$procedures]);
         } else {
             return $customers;
         }

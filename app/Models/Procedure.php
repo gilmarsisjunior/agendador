@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Procedure extends Model
 {
     use HasFactory;
+
+    public function event(){
+       // return $this->belongsTo(Event::class);
+    }
 }

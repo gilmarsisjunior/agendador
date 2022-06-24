@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('procedures', function (Blueprint $table) {
-            $table->float('value', 8, 2);
+            $table->string('value');
         });
     }
 

@@ -21,7 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::get('/data', 'Event/EventController@index');
-
 Route::get('/data',[EventController::class, 'store']);
 Route::get('/clientes',[CustomerApiController::class, 'getCustomers']);

@@ -19,7 +19,7 @@
      <tr>
        <th>#ID</th>
        <th>Procedimento</th>
-       <th>Valor</th>
+       <th>Valor R$</th>
        <th>Opções</th>
 
      </tr>
@@ -31,7 +31,7 @@
             
            <td>{{$procedure->id}}</td>
            <td>{{$procedure->procedure}}</td>
-           <td>{{$procedure->value}}</td>
+           <td><i>R$</i> {{$procedure->value}}</td>
             <td>
             <a href="#"><img src="{{asset('admin/customers/icons/edit-icon.svg')}}" alt=""></a>
             <a href="#"><img src="{{asset('admin/customers/icons/trashcan.png')}}" alt=""></a>

@@ -1,53 +1,91 @@
 @extends('layout.home')
 @section('content')
-<div class="container" style=" text-align:center">
-  @if (session('msg'))
-  <div class="alert alert-info">
-    {{ session('msg') }}
-  </div>
-  @endif
-</div>
 <div style="display:flex; justify-content:flex-end; align-items:center">
-    <div class="bg-info">
-        <a class="btn btn-primary" href="#" role="" style="background-color:#6F93F7"><strong>+</strong> Novo Cliente</a>
-    </div>
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
+    Novo Cliente
+  </button>
 </div>
 
-<strong style="color: gray">Clientes</strong>
-<table class="table table-borderless" style="text-align: center">
 
-    <thead class="table">
+<!-- Botão para acionar modal -->
+
+
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Modal">Novo Cliente</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addUserForm" method="POST">
+          @csrf
+          <div class="form-group">
+            <label for="name" class="col-form-label">Nome:</label>
+            <input type="text" class="form-control" name="name" id="name">
+          </div>
+          <div class="form-group col-md-8">
+            <label for="email" class="col-form-label">Email:</label>
+            <input type="text" class="form-control" name="email" id="email">
+          </div>
+          <div class="row">
+            <div class="form-group col-md-8">
+              <label for="address" class="col-form-label">Endereço:</label>
+              <input type="text" class="form-control" name="address" id="address">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="number" class="col-form-label">Número:</label>
+              <input type="text" class="form-control" name="number" id="number">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+            <input type="submit" value="Cadastrar" class="btn btn-outline-success">
+          </div>
+        </form>
+      </div>
       
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">E-mail</th>
-        <th scope="col">Endereço</th>
-        <th scope="col">Telefone</th>
-       
-        <th scope="col">Opções</th>
-      </tr>
-    </thead>
-    <tbody  id="customers">
-      @foreach ($customers as $value)
-          <tr>
-              <td>{{$value->name}}</td>
-              <td>{{$value->email}}</td>
-              <td>{{$value->address}}</td>
-              <td>{{$value->telephone}}</td>
-              
-              <td><a href="{{route('customer.update', $value->id)}}" ><img src="{{asset('admin/customers/icons/edit-icon.svg')}}" alt=""></a><a href="{{route('customer.delete', $value->id)}}"><img src="{{asset('admin/customers/icons/trashcan.png')}}"></a></td>
-              
-             
-          </tr>
-      @endforeach  
+    </div>
+  </div>
+</div>
 
-    </tbody>
-  </table>
+<span id="msg"></span>
+
+<div id="customer-data">
+  @include('shared.customers-pagination')
+</div>
+
 @endsection
 
 @push('scripts')
-<script>
+<script>//list customers;   
+ //oculta texto em inglês de quantidade de dados
 
-</script>
+$(document).ready(function(){
+
+$(document).on('click', '.pagination a', function(ev){
+  ev.preventDefault();
+  let page = this.innerHTML;
+
+ $.ajax(({
+   type: "GET",
+   url: '/clta'+ '?page='+page,
+   success: (data)=>{
+    $("#customer-data").html(data);
+
+   }
+ }))
+
+
+})
+
+
+})
+
+
+  </script>
+<script src="{{asset('admin/js/customer.js')}}"></script>
 
 @endpush

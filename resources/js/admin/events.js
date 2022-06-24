@@ -1,4 +1,3 @@
-//add customers;
 $("#addUserForm").on('submit', (event) => {
     event.preventDefault();
 

@@ -5,31 +5,52 @@ namespace App\Http\Controllers\Event;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Event;
+use App\Models\Procedure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Redirect;
+
 class EventController extends Controller
 {
     public function index(Request $request)
     {
+
         $customerName = Customer::find($request->customer)->name;
+        $procedure = Procedure::find($request->procedure);
         Event::create([
             'customer_id' => $request->customer,
-            'text' => $customerName . ' - ' . $request->procedimento,
+            'procedure_id'=>$procedure->procedure,
+            'text' => $customerName,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'attend'=> 0,
-            'color' => 'purple',
+            'color' => '#d4d323',
         ]);
         return redirect()->route('home');
     }
+
+
+    public function destroy($id){
+        $delete = Event::find($id)->delete();
+        if ($delete) {
+            return redirect::back()->with('msg', 'O agendamento foi excluído com sucesso!');
+        } else {
+            return redirect::back()->with('msg', 'O Agendamento não pôde ser excluído!');
+        }
+    }
+
+
+
+
 
     public function showEvents(){
         $data = [];
         
         $events = DB::table('events')->orderBy('attend', 'desc')->get();
         foreach($events as $key=>$event){
+    
             $name = $this->getNameAndProcedimento($event->text)[0];
-            $procedimento = $this->getNameAndProcedimento($event->text)[1];
+            $procedimento = $event->procedure_id;
             $date_init = $this->getDataAndTime($event->start_date)[0];
             $time_init = $this->getDataAndTime($event->start_date)[1];
             $date_end =  $this->getDataAndTime($event->end_date)[0];
@@ -50,14 +71,31 @@ class EventController extends Controller
             array_push($data, $eventos);
 
         }
-
-        return view('admin.schedule', compact('data'));
+        $customers = $this->getCustomers();
+        return view('admin.schedule', ['data'=>$data, 'datas'=>$customers ]);
 
     }
+    public function getCustomers()
+    {
+        $url = $_SERVER['PATH_INFO'];
+        $url = str_replace('/', '', $url);
+        $customers = Customer::get();
+        $procedures = Procedure::get();
+        if ($url === 'agenda') {
+            return  ['customers'=>$customers, 'procedures'=>$procedures];
+        } else {
+            return $customers;
+        }
 
+    }
     public function attendCustomer(Request $request){
-        DB::table('events')->where('id', $request->id)->update(['attend'=>1]);
-        return back()->with('msg', 'Concluído');
+        $events = DB::table('events')->find($request->id);
+        $customer = DB::table('customers')->find($events->customer_id);
+        DB::table('events')->where('id', $request->id)
+        ->update(['attend'=>1,
+                  'color'=> '#128731',
+                ]);
+        return back()->with('msg', 'O Atendimento foi feito com sucesso!');
     }
 
 
@@ -100,9 +138,8 @@ class EventController extends Controller
     public function store()
     {
         $events = new Event();
-
         return response()->json([
-            "data" => $events->all(),
+            "data" => DB::table('events')->get()
         ]);
     }
 }
